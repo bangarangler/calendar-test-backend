@@ -19,8 +19,8 @@ exports.createEvent = async (req, res, next) => {
   const event = new Event({
     title: title,
     allDay: allDay,
-    start: startDate,
-    end: endDate
+    start: new Date(startDate).toISOString(),
+    end: new Date(endDate).toISOString()
   })
 
   event.save((err, event) => {
