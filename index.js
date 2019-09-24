@@ -2,22 +2,26 @@ require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('bodyParser');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const compression = require('compression');
 
 const app = express();
+const eventRoutes = require('./routes/event.js');
 
+app.use(cors());
 app.use(helmet());
 app.use(compression());
 app.use(bodyParser.json());
+app.use(eventRoutes);
+
 
 mongoose
   .connect(
-    `mongodb+srv://${MONGO_USER}:${MONGO_PW}@calendar-test-jp-byzkt.mongodb.net/calendar`,
-    {useNewUrlParser: true},
+    `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PW}@calendar-test-jp-byzkt.mongodb.net/calendar`,
+    {useNewUrlParser: true, useUnifiedTopology: true},
   )
   .then(res => {
-    app.listen(process.env.PORT || 8080).catch(err => console.log(err));
-  });
+    app.listen(process.env.PORT || 8080);
+  }).catch(err => console.log(err));
