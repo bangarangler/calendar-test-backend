@@ -29,7 +29,7 @@ exports.createEvent = async (req, res, next) => {
       res.json(`Something went Wrong...`).status(500)
     } else {
       console.log(event)
-      res.status(200).json(`${event}`)
+      res.status(200).json(`${JSON.stringify(event)}`)
     }
   })
 }
