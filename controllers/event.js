@@ -35,7 +35,7 @@ exports.createEvent = async (req, res, next) => {
 };
 
 exports.updateEvent = async (req, res, next) => {
-  const eventId = req.body.eventId;
+  const eventId = req.params.eventId;
   const updatedTitle = req.body.title;
   const updatedAllDay = req.body.allDay;
   const updatedStartDate = req.body.start;
@@ -53,7 +53,9 @@ exports.updateEvent = async (req, res, next) => {
     event.start = updatedStartDate;
     event.end = updatedEndDate;
     const result = await event.save();
-    res.status(200).json({message: 'Event updated!', event: result});
+    res
+      .status(200)
+      .json({message: 'Event updated!', event: `${JSON.stringify(result)}`});
   } catch (err) {
     if (!err.statusCode) {
       err.statusCode = 500;
