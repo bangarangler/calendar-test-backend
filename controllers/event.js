@@ -63,3 +63,23 @@ exports.updateEvent = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.deleteEvent = async (req, res, next) => {
+  const eventId = req.params.eventId;
+  try {
+    const event = await Event.findById(eventId)
+    if (!event) {
+      const error = new Error('Could not find event.')
+      error.statusCode = 404;
+      throw error;
+    } else {
+      await event.remove();
+      res.status(204).json({message: "Event Deleted!"})
+    }
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err)
+  }
+}
