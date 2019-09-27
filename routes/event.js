@@ -7,6 +7,6 @@ router.get('/events', eventController.getEvents);
 
 router.post('/event', eventController.createEvent);
 
-router.put('/update/:eventId', eventController.updateEvent);
+router.put('/update', eventController.updateEvent);
 
 module.exports = router;

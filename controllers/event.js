@@ -35,8 +35,7 @@ exports.createEvent = async (req, res, next) => {
 };
 
 exports.updateEvent = async (req, res, next) => {
-  console.log(req.params.eventId)
-  const eventId = req.params.eventId;
+  const eventId = req.body.eventId;
   const updatedTitle = req.body.title;
   const updatedAllDay = req.body.allDay;
   const updatedStartDate = req.body.start;
